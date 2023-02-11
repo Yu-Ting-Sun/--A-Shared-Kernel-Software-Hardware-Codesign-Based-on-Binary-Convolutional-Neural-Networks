@@ -14,7 +14,6 @@
 
 卷積核分解的方法是將二值化神經網路權重中的-1 的部分改為 0,形成 Filter Kernel,並且創建一個所有權重都是-1 的 Base Kernel。卷積運算時擷取部分輸入特徵,再分別將其與 Base Kernel、Filter Kernel 做卷積運算,並將分別得到的結果相加,即可得到該位置卷積運算的結果。
 ![img](./kernel-decomposition.jpg)
-operation-count.png
 
 ## 測試結果
 我們使用 Python 模擬各個方法中加法及乘法的運算次數。從左圖可以看到除了傳統卷積的電路外,其他的電路都沒有乘法的運算,因為 BNN 搭配卷積核分解可以用加法取代乘法運算。另外兩種基於卷積核分解的硬體實作方法中,ICF 運算次數較多的原因是它沒有使用 Base Kernel,所以在少了Base Kernel 的輔助下,每次都需要完整的計算一遍,因此可以其加法次數跟傳統卷積(Baseline)一樣。
